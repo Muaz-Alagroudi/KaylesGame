@@ -1,16 +1,18 @@
 from tkinter import *
 from tkinter import messagebox
 
+#general setup
 window = Tk()
 window.geometry('900x400')
 window.configure(bg='grey')
 
+#initializing counter and player variables
 turn_counter = 0
 counter = 0
 
 player = True
 
-
+#enables all buttons
 def enable():
     b1.config(state=NORMAL)
     b2.config(state=NORMAL)
@@ -22,7 +24,7 @@ def enable():
     b8.config(state=NORMAL)
     b9.config(state=NORMAL)
 
-
+#disables buttons that are not adjacent to the currently chosen button
 def disable_non_adj(b):
     if b == b1:
         b3.config(state=DISABLED)
@@ -92,6 +94,7 @@ def disable_non_adj(b):
         b7.config(state=DISABLED)
 
 
+#enables all the buttons and resets all the text
 def reset():
     global turn_counter, counter, player
     turn_counter = 0
@@ -109,6 +112,7 @@ def reset():
     b9['text'] = '9'
 
 
+#uses the turn counter to switch to the other player
 def switch():
     global player, turn_counter
     turn_counter = 0
@@ -120,6 +124,8 @@ def switch():
     enable()
 
 
+#checks if a button has been clicked and disables the adjacent buttons
+#checks if there is a winner and if the button selected is valid
 def b_click(b):
     global counter, turn_counter
     if turn_counter == 0:
@@ -139,7 +145,9 @@ def b_click(b):
         switch()
         print("counter : ", counter)
 
-
+        
+#checks if the counter's value is 8, if it is then the player won
+#displays message box displaying the winning player
 def check_winner():
     if counter == 8:
         if player:
@@ -148,6 +156,7 @@ def check_winner():
             messagebox.showinfo("Kayle's Game", "PLAYER TWO WON")
 
 
+#creating and placing the buttons and the main label
 explanation = Label(window, text="WELCOME TO KAYLE'S GAME\n"
                                  "Rules : A player is able to remove one or two adjacent tokens\n"
                                  "The last player to remove a token wins\n", font="none 14 bold")
@@ -177,4 +186,6 @@ b6.place(x=100 * 5, y=200, anchor='w')
 b7.place(x=100 * 6, y=200, anchor='w')
 b8.place(x=100 * 7, y=200, anchor='w')
 b9.place(x=100 * 8, y=200, anchor='w')
+
+#looping the program
 window.mainloop()
